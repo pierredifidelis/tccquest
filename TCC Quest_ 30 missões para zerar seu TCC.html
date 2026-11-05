@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCC Quest: 30 missões para zerar seu TCC</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F8;--grid:#D5DFEA;--surface:#fff;--ink:#14213D;--muted:#51607A;--ok:#2E9E6B;--bad:#FBE3E3;--good:#DFF3E8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--bad:#4A2A2F;--good:#1F4535;color-scheme:dark}.w{--soft:var(--sd)!important}}
+:root[data-theme="dark"]{--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--bad:#4A2A2F;--good:#1F4535;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:24px 16px 64px}
+h1{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:0 0 6px}
+.sub{margin:0 0 18px;color:var(--muted)}
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:10px 14px;margin-bottom:14px;box-shadow:4px 4px 0 var(--ink)}
+.lvl{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:1.15rem}
+.bar{flex:1;min-width:120px;height:14px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;background:var(--bg)}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{font:700 .85rem "Nunito Sans",system-ui,sans-serif;color:#fff;background:var(--c);border:2px solid var(--ink);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chip:disabled{background:var(--muted);opacity:.6;cursor:not-allowed}
+.w{--soft:var(--sl);margin-bottom:34px}
+.wh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:1.5rem;line-height:1.1;margin:0 0 12px;padding-bottom:6px;border-bottom:4px solid var(--c)}
+.wp{font:700 .9rem "Nunito Sans",system-ui,sans-serif;color:var(--muted)}
+.m{background:var(--surface);border:2px solid var(--ink);border-radius:14px;margin-bottom:14px;box-shadow:4px 4px 0 var(--ink);overflow:hidden}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;font:700 1.05rem "Nunito Sans",system-ui,sans-serif;background:var(--c);color:#fff;border:0;padding:12px 16px;cursor:pointer}
+.mh:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.m.lock .mh{background:var(--muted);cursor:not-allowed}
+.mb{display:none;padding:16px}
+.m.open .mb{display:block}
+.goal{font-weight:700;margin:0 0 10px}
+.ex{background:var(--soft);border-left:6px solid var(--c);border-radius:8px;padding:10px 12px;margin:0 0 14px;font-size:.95rem}
+.vs{display:grid;gap:8px;margin:0 0 14px;font-size:.95rem}
+.vs div{border-radius:8px;padding:8px 12px}
+.vs .n{background:var(--bad)}.vs .y{background:var(--good)}
+label{display:block;font-weight:700;margin:12px 0 4px}
+input[type=text],textarea{width:100%;font:1rem "Nunito Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:2px solid var(--ink);border-radius:10px;padding:9px 11px}
+textarea{min-height:110px;resize:vertical}
+input:focus-visible,textarea:focus-visible{outline:3px solid var(--c);outline-offset:1px}
+.ck{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:8px 0}
+.ck input{width:22px;height:22px;margin-top:2px;accent-color:var(--ok)}
+.q{background:var(--bg);border:2px dashed var(--ink);border-radius:10px;padding:10px 12px;font-weight:700;margin-bottom:6px}
+.btn{margin-top:16px;font:700 1rem "Nunito Sans",system-ui,sans-serif;background:var(--ink);color:var(--bg);border:2px solid var(--ink);border-radius:10px;padding:10px 16px;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.m.done .mh::after{content:"Concluída ✓"}
+.hint{font-size:.85rem;color:var(--muted);margin:6px 0 0}
+.fim{display:none;background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:18px;box-shadow:4px 4px 0 var(--ink)}
+.fim.show{display:block}
+.fim h3{font-family:"Baloo 2",system-ui,sans-serif;font-size:1.4rem;margin:0 0 6px}
+.res{white-space:pre-wrap;background:var(--bg);border:2px solid var(--ink);border-radius:10px;padding:12px;font-size:.95rem}
+#final{--c:#14213D}
+.bk{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:12px 16px;margin:0 0 22px;box-shadow:4px 4px 0 var(--ink)}
+.bk summary{font-weight:700;cursor:pointer}
+.bk p{margin:10px 0 0;font-size:.95rem}
+.bk textarea{min-height:80px;margin-top:10px;font-size:.8rem;word-break:break-all}
+.bk .btn{margin:8px 8px 0 0;padding:8px 12px;font-size:.9rem}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<h1>TCC Quest: 30 missões para zerar seu TCC</h1>
+<p class="sub">Uma missão de 1 hora por dia, com exemplo pronto em cada uma. Suas respostas ficam salvas neste aparelho. Cada mundo libera o próximo.</p>
+<div class="hud" aria-live="polite"><span class="lvl" id="lvl">Calouro</span><div class="bar"><i id="fill"></i></div><b id="xp">0 XP</b></div>
+<div class="chips" id="chips"></div>
+<details class="bk"><summary>Salvar ou restaurar meu progresso</summary>
+<p>Seu progresso fica salvo neste aparelho. Para guardar uma cópia ou levar para outro aparelho, gere o código, copie-o e guarde em um lugar seguro. Depois, cole o código no campo e toque em Restaurar. A restauração substitui o progresso que está agora na página.</p>
+<textarea id="bkcode" placeholder="O código aparece aqui. Para restaurar, cole um código salvo."></textarea>
+<button class="btn" type="button" id="bkgen">Gerar código</button><button class="btn" type="button" id="bkcopy">Copiar código</button><button class="btn" type="button" id="bkdl">Baixar arquivo</button><button class="btn" type="button" id="bkrest">Restaurar progresso</button>
+<p class="hint" id="bkmsg" aria-live="polite"></p></details>
+<div id="root"></div>
+<section class="w" id="final" style="--c:#14213D">
+<div class="fim" id="fimfinal">
+<h3>Você é Mestre do TCC! 300 XP</h3>
+<p>Você concluiu as 30 missões. Abaixo está o rascunho completo do seu TCC, montado com as suas respostas. Copie para um arquivo, formate na ABNT e revise com calma.</p>
+<div class="res" id="resfinal"></div>
+<button class="btn cp" type="button" data-t="resfinal">Copiar rascunho completo</button>
+<p class="hint" id="cmsg"></p>
+</div>
+</section>
+</main>
+<script>
+var W=[{"n":"A Pergunta","c":"#D9482F","sl":"#FCE9E4","sd":"#3A2630","m":[{"t":"Missão 1: O que eu conheço","g":"Escolher o assunto de onde o seu TCC vai partir.","ex":"<b>Exemplo:</b> entre 10 assuntos do curso, o escolhido foi <b>redes sociais</b>, porque “uso muito o celular e vejo colegas distraídos nas aulas”.","f":[{"id":"w1_assuntos","l":"Liste 10 assuntos do seu curso que você domina ou de que gosta","p":"Um assunto por linha","ta":1},{"id":"w1_assunto","l":"Assunto escolhido (o que tem mais material para pesquisar)","p":"Ex.: redes sociais"},{"id":"w1_motivo","l":"Por que esse assunto?","p":"Quero estudar ___ porque ___"}]},{"t":"Missão 2: O funil","g":"Transformar o assunto em um problema, passando por tema e recorte.","ex":"<b>Exemplo.</b> Tema: redes sociais. Recorte: universitários de uma faculdade privada, em 2026. Problema: estudantes passam horas no Instagram e dizem ter dificuldade de se concentrar nos estudos.","f":[{"id":"w1_tema","l":"Tema (o assunto geral)","p":"Ex.: redes sociais"},{"id":"w1_recorte","l":"Recorte (quem, onde e quando)","p":"Ex.: universitários de uma faculdade privada, em 2026"},{"id":"w1_problema","l":"Problema (o que acontece de errado ou o que você quer entender)","p":"O problema é que ___, o que causa ___","ta":1}]},{"t":"Missão 3: A pergunta","g":"Escrever a pergunta de pesquisa em uma frase só.","ex":"<b>Fórmula:</b> “Como [X] influencia [Y] em [contexto]?”<br><b>Exemplo:</b> Como o tempo diário no Instagram influencia a concentração nos estudos de universitários de uma faculdade privada?","vs":["Redes sociais fazem mal?","Ampla demais, sem recorte e com resposta de “sim” ou “não”.","Como o tempo diário no Instagram influencia a concentração nos estudos de universitários de uma faculdade privada?","Específica, com recorte e respondível com dados."],"f":[{"id":"w1_v1","l":"Versão 1","p":"Como ___ influencia ___ em ___?"},{"id":"w1_v2","l":"Versão 2","p":"Como ___ influencia ___ em ___?"},{"id":"w1_v3","l":"Versão 3","p":"Como ___ influencia ___ em ___?"},{"id":"w1_final","l":"Pergunta final (a mais específica das três)","p":"Copie e ajuste a melhor versão"}]},{"t":"Missão 4: Teste do orientador","g":"Confirmar que a pergunta é viável. Marque só o que for verdade.","ex":"<b>Se algum item ficar sem marca,</b> volte à Missão 3 e reduza o recorte. No exemplo, os 5 itens passaram.","qq":1,"f":[{"id":"w1_c1","l":"Dá para responder com dados e fontes reais.","c":1},{"id":"w1_c2","l":"Cabe no meu prazo.","c":1},{"id":"w1_c3","l":"Exige mais do que um simples “sim” ou “não”.","c":1},{"id":"w1_c4","l":"Tem recorte (quem, onde e quando).","c":1},{"id":"w1_c5","l":"Tenho acesso aos dados ou às pessoas.","c":1}]},{"t":"Missão 5: Título e justificativa","g":"Mostrar por que o tema importa, em 5 linhas.","ex":"<b>Título:</b> O Instagram e a concentração nos estudos: um estudo com universitários de uma faculdade privada.<br><b>Justificativa:</b> O uso excessivo de redes sociais afeta a atenção de muitos estudantes. Na faculdade, isso aparece em notas baixas e em dificuldade para estudar. Este estudo é relevante porque identifica como o tempo no Instagram se relaciona com a concentração. Os resultados podem ajudar alunos e professores a criar hábitos de estudo melhores.","f":[{"id":"w1_titulo","l":"Título provisório (tema + recorte)","p":"Ex.: O Instagram e a concentração nos estudos..."},{"id":"w1_justif","l":"Justificativa: qual é o problema, quem ele afeta e o que o seu estudo traz de útil","p":"Este estudo é relevante porque ___ afeta ___ e pode ___","ta":1}]}]},{"n":"O Mapa","c":"#9A6700","sl":"#FBF0D9","sd":"#3A3220","m":[{"t":"Missão 6: Objetivo geral","g":"Definir a meta principal do trabalho em uma frase que começa com verbo no infinitivo (analisar, comparar, identificar).","ex":"<b>Exemplo:</b> Analisar como o tempo diário no Instagram influencia a concentração nos estudos de universitários de uma faculdade privada.","vs":["Falar sobre redes sociais.","Sem recorte e sem uma meta que dê para medir.","Analisar como o tempo diário no Instagram influencia a concentração nos estudos de universitários de uma faculdade privada.","Um verbo, uma meta e o mesmo recorte da pergunta."],"f":[{"id":"w2_pergunta","l":"Sua pergunta de pesquisa (do Mundo 1)","p":"Como ___ influencia ___ em ___?"},{"id":"w2_geral","l":"Objetivo geral (um só verbo principal)","p":"Analisar como ___ influencia ___ em ___","ta":1}]},{"t":"Missão 7: Os 3 objetivos específicos","g":"Dividir a meta em três passos. Cada objetivo vai virar um capítulo do referencial.","ex":"<b>Exemplo.</b> 1) Identificar quanto tempo os universitários passam no Instagram por dia. 2) Descrever como eles avaliam a própria concentração nos estudos. 3) Comparar a concentração de quem usa mais e de quem usa menos o Instagram.","f":[{"id":"w2_o1","l":"Objetivo específico 1 (o que preciso entender primeiro)","p":"Identificar ___"},{"id":"w2_o2","l":"Objetivo específico 2 (o que vem depois)","p":"Descrever ___"},{"id":"w2_o3","l":"Objetivo específico 3 (o que fecha a análise)","p":"Comparar ___"}]},{"t":"Missão 8: O esqueleto","g":"Montar o sumário antes de escrever. Os 3 subtítulos do referencial nascem dos 3 objetivos específicos.","ex":"<b>Exemplo.</b> 2.1 O uso do Instagram entre jovens. 2.2 Concentração e aprendizagem. 2.3 Hábitos de estudo e distração digital.<br><b>Estrutura-base:</b> 1 Introdução; 2 Referencial teórico; 3 Metodologia; 4 Resultados e discussão; 5 Conclusão; Referências.","f":[{"id":"w2_s1","l":"Subtítulo 2.1 (ligado ao objetivo 1)","p":"2.1 ___"},{"id":"w2_s2","l":"Subtítulo 2.2 (ligado ao objetivo 2)","p":"2.2 ___"},{"id":"w2_s3","l":"Subtítulo 2.3 (ligado ao objetivo 3)","p":"2.3 ___"},{"id":"w2_partes","l":"Em uma linha, o que vai na Introdução, na Metodologia, nos Resultados e na Conclusão","p":"Introdução: ___ Metodologia: ___ Resultados: ___ Conclusão: ___","ta":1}]},{"t":"Missão 9: Cronograma","g":"Garantir que o trabalho termine no prazo, com um horário fixo de 1 hora por dia.","ex":"<b>Exemplo.</b> Faltam 40 dias para a entrega. As 30 missões ocupam 30 dias, e sobram 10 de folga. Horário: todos os dias, às 19h, por 1 hora, em casa.","f":[{"id":"w2_dias","l":"Quantos dias faltam até a entrega do TCC?","p":"Ex.: 40"},{"id":"w2_horario","l":"Seu horário fixo","p":"Todos os dias, às ___, por 1 hora, em ___"},{"id":"w2_folga","l":"Quantos dias de folga sobram (dias restantes menos 30)? Se der menos de 2, ajuste o plano","p":"Ex.: 10"}]},{"t":"Missão 10: Hipótese","g":"Registrar o que você espera encontrar. Se a hipótese for negada, o trabalho continua válido.","ex":"<b>Exemplo:</b> “Acredito que quem passa mais de 3 horas por dia no Instagram tem mais dificuldade de se concentrar, porque troca de tarefa o tempo todo.”","f":[{"id":"w2_hip","l":"Sua hipótese","p":"Acredito que ___, porque ___","ta":1},{"id":"w2_dado","l":"Que tipo de dado confirmaria ou negaria a sua ideia?","p":"Ex.: respostas de um questionário sobre horas de uso e concentração"}]}]},{"n":"A Biblioteca","c":"#23805A","sl":"#DDF1E7","sd":"#1F3A30","m":[{"t":"Missão 11: Caça às fontes","g":"Reunir material para o referencial. Meta: 30 fontes salvas, para depois ficar com as 15 melhores.","ex":"<b>Exemplo.</b> Palavras-chave: Instagram, concentração, universitários, redes sociais, aprendizagem. Busca no Google Acadêmico: “Instagram” “concentração” universitários.<br><b>Onde buscar:</b> Google Acadêmico, SciELO e a biblioteca da sua faculdade. Use aspas para frases exatas.","f":[{"id":"w3_kw","l":"5 palavras-chave do seu tema","p":"Separe por vírgula"},{"id":"w3_busca","l":"A busca que você fez (2 ou 3 palavras-chave combinadas)","p":"“palavra 1” “palavra 2” recorte"},{"id":"w3_links","l":"Cole aqui os links ou títulos das fontes que salvou (meta: 30)","p":"Um por linha","ta":1}]},{"t":"Missão 12: O filtro","g":"Ficar só com as melhores fontes: de 30, escolha as 15 mais fortes.","ex":"<b>Exemplo:</b> “Escolhi esta fonte porque trata de uso de redes sociais e atenção e foi publicada em 2022.”<br>Descarte: fontes com mais de 10 anos (exceto autores clássicos), sem autor identificado ou sem publicação confiável.","f":[{"id":"w3_quinze","l":"Suas 15 fontes escolhidas (autor, título e ano)","p":"Um por linha","ta":1},{"id":"w3_f1","l":"Todas foram publicadas nos últimos 10 anos (ou são autores clássicos).","c":1},{"id":"w3_f2","l":"Todas têm autor identificado.","c":1},{"id":"w3_f3","l":"Todas vêm de revista, livro ou instituição confiável.","c":1},{"id":"w3_f4","l":"Todas tratam diretamente do meu tema.","c":1}]},{"t":"Missão 13: Fichamento","g":"Resumir cada fonte em uma ficha de 4 linhas. Hoje, faça as 8 primeiras; as outras entram em 5 minutos por dia.","ex":"<b>Exemplo (dados fictícios, só para mostrar o formato).</b><br>Ideia principal: o uso frequente de redes sociais reduz a atenção contínua em jovens.<br>Citação: “[trecho curto, copiado entre aspas]” (p. 12).<br>Referência: SOBRENOME, Nome. Título do artigo. <i>Nome da revista</i>, cidade, v. 1, n. 1, p. 1-10, 2022.","f":[{"id":"w3_ideia","l":"Ficha da sua 1ª fonte: ideia principal (uma linha)","p":"O autor afirma que ___"},{"id":"w3_citacao","l":"Citação útil (entre aspas, copiada exatamente)","p":"“___”"},{"id":"w3_pagina","l":"Página da citação","p":"Ex.: 12"},{"id":"w3_ref","l":"Referência já formatada na ABNT","p":"SOBRENOME, Nome. Título. Revista, cidade, v., n., p., ano."},{"id":"w3_oito","l":"Fiz as 8 primeiras fichas, no mesmo modelo.","c":1}]},{"t":"Missão 14: O parágrafo de 3 passos","g":"Aprender a escrever o parágrafo que sustenta todo o TCC: Ponto, Explicação e Citação.","ex":"<b>Ponto:</b> O uso do Instagram pode atrapalhar a concentração.<br><b>Explicação:</b> Isso acontece porque o aplicativo estimula trocas rápidas de atenção entre fotos, vídeos e notificações.<br><b>Citação:</b> Segundo [Autor] (ano), [ideia do autor, com as suas palavras].","f":[{"id":"w3_ponto","l":"Ponto (uma frase com a ideia principal)","p":"___ pode ___"},{"id":"w3_expl","l":"Explicação (2 ou 3 frases, com as suas palavras)","p":"Isso significa que ___","ta":1},{"id":"w3_cit","l":"Citação (o autor que apoia a sua ideia)","p":"Segundo [Autor] (ano), ___"},{"id":"w3_minhas","l":"Escrevi com as minhas palavras, sem copiar da fonte.","c":1}]},{"t":"Missão 15: Referencial, subtítulo 2.1","g":"Escrever o primeiro subtítulo do referencial, ligado ao objetivo específico 1. Meta: 3 parágrafos de 3 passos.","ex":"<b>Exemplo de frase de ligação no fim:</b> “Entendido o uso do Instagram, é possível analisar como a concentração funciona na aprendizagem.”","f":[{"id":"w3_a1","l":"Parágrafo 1 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_a2","l":"Parágrafo 2 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_a3","l":"Parágrafo 3 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_a4","l":"Frase final, que leva ao próximo subtítulo","p":"Entendido ___, é possível analisar ___"}]},{"t":"Missão 16: Referencial, subtítulo 2.2","g":"Escrever o segundo subtítulo, ligado ao objetivo específico 2, começando com uma frase que o conecte ao anterior.","ex":"<b>Exemplo de frase de abertura:</b> “Depois de compreender o uso do Instagram, é preciso entender o que é concentração e como ela se liga ao estudo.”","f":[{"id":"w3_b0","l":"Frase de abertura, que conecta ao subtítulo anterior","p":"Depois de compreender ___, é preciso entender ___"},{"id":"w3_b1","l":"Parágrafo 1 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_b2","l":"Parágrafo 2 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_b3","l":"Parágrafo 3 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_bc","l":"Conferi: todo parágrafo tem uma citação.","c":1}]},{"t":"Missão 17: Referencial, subtítulo 2.3 e revisão","g":"Terminar o referencial e conferir as fontes: citações, referências e plágio.","ex":"<b>Exemplo de síntese:</b> “Em síntese, os autores mostram que o uso intenso do Instagram, a dificuldade de concentração e os hábitos de estudo estão ligados.”","f":[{"id":"w3_c1","l":"Parágrafo 1 do subtítulo 2.3 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_c2","l":"Parágrafo 2 do subtítulo 2.3 (Ponto, Explicação e Citação)","p":"Escreva aqui","ta":1},{"id":"w3_c3","l":"Síntese do referencial (uma frase)","p":"Em síntese, os autores mostram que ___"},{"id":"w3_r1","l":"Reli os três subtítulos e cortei repetições.","c":1},{"id":"w3_r2","l":"Toda citação do texto aparece na lista de referências.","c":1},{"id":"w3_r3","l":"Reescrevi com as minhas palavras os trechos muito parecidos com a fonte.","c":1}]}]},{"n":"O Método","c":"#1F6FB5","sl":"#DCEBF8","sd":"#1D3350","m":[{"t":"Missão 18: Escolha do método","g":"Escolher o método que combina com a pergunta, e não com o seu gosto.","ex":"<b>Como escolher:</b> se a pergunta é “o que dizem os autores?”, use revisão bibliográfica. Se trata de uma situação específica, use estudo de caso. Se depende da opinião ou do hábito de pessoas, use questionário.<br><b>Exemplo:</b> “Para responder à pergunta, adotou-se o questionário, pois ela depende do tempo de uso e da percepção dos universitários.”","vs":["“Escolhi questionário porque é o mais fácil.”","O motivo não tem relação com a pergunta.","“Escolhi questionário porque a pergunta depende do hábito de uso e da percepção dos alunos.”","O motivo nasce da pergunta."],"f":[{"id":"w4_perg","l":"Sua pergunta de pesquisa","p":"Como ___ influencia ___ em ___?"},{"id":"w4_metodo","l":"Método escolhido","p":"Revisão bibliográfica, estudo de caso ou questionário"},{"id":"w4_motivo","l":"Por que ele responde à sua pergunta?","p":"Para responder à pergunta, adotou-se ___, pois ___","ta":1},{"id":"w4_obj3","l":"O método ajuda a responder os 3 objetivos específicos.","c":1}]},{"t":"Missão 19: Texto da metodologia","g":"Escrever a seção de metodologia em 4 parágrafos curtos.","ex":"<b>Exemplo.</b> 1) Trata-se de uma pesquisa descritiva, de abordagem quantitativa. 2) Os dados foram coletados por meio de um questionário online, com 10 perguntas. 3) As respostas foram analisadas com porcentagens e gráficos simples. 4) Participaram 30 universitários de uma faculdade privada.<br><b>Lembrete:</b> descritiva descreve; exploratória investiga um tema pouco estudado. Qualitativa interpreta; quantitativa mede.","f":[{"id":"w4_t1","l":"Parágrafo 1: tipo de pesquisa e abordagem","p":"Trata-se de uma pesquisa ___, de abordagem ___.","ta":1},{"id":"w4_t2","l":"Parágrafo 2: como os dados foram coletados","p":"Os dados foram coletados por meio de ___.","ta":1},{"id":"w4_t3","l":"Parágrafo 3: como os dados foram analisados","p":"As respostas foram analisadas por ___.","ta":1},{"id":"w4_t4","l":"Parágrafo 4: quem participou e quantas pessoas (ou quais fontes foram usadas)","p":"Participaram ___ pessoas, que ___.","ta":1}]},{"t":"Missão 20: O instrumento","g":"Preparar a ferramenta de coleta. Para estudo de caso, use um roteiro de 5 a 8 perguntas; para revisão bibliográfica, uma lista de critérios de seleção (ano, tema e tipo de fonte).","ex":"<b>Exemplo de questionário:</b><br>1) Quantas horas por dia você usa o Instagram? (menos de 1 h; de 1 a 3 h; mais de 3 h)<br>2) Você concorda que consegue se concentrar nos estudos? (1 = discordo totalmente, 5 = concordo totalmente)<br>3) Pergunta aberta: o que mais atrapalha a sua concentração?","f":[{"id":"w4_inst","l":"Instrumento escolhido","p":"Questionário, roteiro de entrevista ou critérios de seleção"},{"id":"w4_q1","l":"Pergunta 1 (ligada ao objetivo específico 1)","p":"Escreva a pergunta e as opções de resposta","ta":1},{"id":"w4_q2","l":"Pergunta 2 (ligada ao objetivo específico 2)","p":"Escreva a pergunta e as opções de resposta","ta":1},{"id":"w4_q3","l":"Pergunta 3 (ligada ao objetivo específico 3)","p":"Escreva a pergunta e as opções de resposta","ta":1},{"id":"w4_q4","l":"Pergunta aberta (uma)","p":"O que ___?"},{"id":"w4_i1","l":"Cada pergunta ajuda a responder um dos objetivos.","c":1},{"id":"w4_i2","l":"Pedi a uma pessoa que testasse e anotei as dúvidas dela.","c":1}]},{"t":"Missão 21: Coleta","g":"Reunir os dados da pesquisa em até 3 dias, de preferência com um formulário online.","ex":"<b>Exemplo:</b> meta de 30 respostas em 3 dias. Mensagem de convite: “Olá! Estou fazendo uma pesquisa para o meu TCC sobre o uso do Instagram e a concentração. Leva só 5 minutos e as respostas são anônimas. Pode me ajudar?”","f":[{"id":"w4_meta","l":"Quantas respostas (ou fontes) você precisa?","p":"Ex.: 30"},{"id":"w4_prazo","l":"Em quantos dias vai coletar?","p":"Ex.: 3"},{"id":"w4_convite","l":"Sua mensagem de convite","p":"Olá! Estou fazendo uma pesquisa para o meu TCC sobre ___. Leva só ___ minutos e as respostas são anônimas. Pode me ajudar?","ta":1},{"id":"w4_pasta","l":"Os dados estão guardados em uma pasta, com data.","c":1}]}]},{"n":"A Descoberta","c":"#7B4FD1","sl":"#EBE3F8","sd":"#2E2650","m":[{"t":"Missão 22: Organizar os dados","g":"Transformar os dados brutos em uma tabela e em um gráfico simples.","ex":"<b>Exemplo (dados fictícios, só para mostrar o formato).</b><br>Tabela 1: Tempo diário no Instagram. Fonte: dados da pesquisa (2026).<br>Menos de 1 h: 6 (20%)<br>De 1 a 3 h: 12 (40%)<br>Mais de 3 h: 12 (40%)<br>Porcentagem = quantidade ÷ total × 100. Aqui, 6 ÷ 30 × 100 = 20%.","f":[{"id":"w5_titulo","l":"Título e fonte da tabela","p":"Tabela 1: ___. Fonte: dados da pesquisa (2026)."},{"id":"w5_tabela","l":"Sua tabela (uma linha por categoria, com a quantidade e a porcentagem)","p":"Categoria: quantidade (porcentagem)","ta":1},{"id":"w5_pct","l":"Calculei as porcentagens.","c":1},{"id":"w5_graf","l":"Criei um gráfico simples (barras ou pizza), com título e fonte.","c":1}]},{"t":"Missão 23: Explicar cada dado","g":"Escrever o que cada tabela ou gráfico mostra, com números e sem exagero.","ex":"<b>Exemplo:</b> “Conforme a Tabela 1, 40% dos participantes usam o Instagram por mais de 3 horas por dia, enquanto 20% o usam por menos de 1 hora.”","vs":["“Muitos alunos usam bastante o Instagram.”","Palavras vagas, sem número e sem tabela citada.","“Conforme a Tabela 1, 40% dos participantes usam o Instagram por mais de 3 horas por dia.”","Número, tabela citada e leitura direta."],"f":[{"id":"w5_l1","l":"Frase de leitura da Tabela 1","p":"Conforme a Tabela 1, ___% dos participantes ___, enquanto ___% ___.","ta":1},{"id":"w5_l2","l":"Frase de leitura da Tabela 2 (ou do gráfico)","p":"Conforme a Tabela 2, ___","ta":1},{"id":"w5_mm","l":"Qual foi o maior e o menor resultado?","p":"O maior foi ___ (___%) e o menor foi ___ (___%)"},{"id":"w5_vagas","l":"Troquei palavras vagas (muitos, poucos) por números.","c":1}]},{"t":"Missão 24: Conectar com o referencial","g":"Ligar os 3 resultados principais a um autor das suas fichas. É a missão que mais pontua com a banca.","ex":"<b>Confirma:</b> “Esse resultado confirma o que [Autor] (ano) afirma, ao apontar que o uso intenso de redes sociais reduz a atenção.”<br><b>Contraria:</b> “Esse resultado contraria [Autor] (ano), que afirma que [ideia].”","f":[{"id":"w5_r1","l":"Resultado 1 e o autor que o apoia (ou contraria)","p":"Esse resultado confirma o que [Autor] (ano) afirma...","ta":1},{"id":"w5_r2","l":"Resultado 2 e o autor que o apoia (ou contraria)","p":"Esse resultado confirma o que [Autor] (ano) afirma...","ta":1},{"id":"w5_r3","l":"Resultado 3 e o autor que o apoia (ou contraria)","p":"Esse resultado confirma o que [Autor] (ano) afirma...","ta":1},{"id":"w5_autfichas","l":"Cada conexão usa um autor que está nas minhas fichas.","c":1}]},{"t":"Missão 25: Limitações","g":"Mostrar honestidade sobre o alcance do estudo. Isso passa confiança, e não fraqueza.","ex":"<b>Exemplo:</b> “Uma limitação desta pesquisa foi a amostra de 30 participantes, de uma só faculdade; por isso, estudos futuros podem incluir outras instituições.”","f":[{"id":"w5_lim","l":"Suas 2 ou 3 limitações (amostra, tempo, local)","p":"Uma limitação desta pesquisa foi ___","ta":1},{"id":"w5_porque","l":"Por que elas não invalidam o trabalho?","p":"Mesmo assim, os resultados são úteis porque ___","ta":1},{"id":"w5_futuro","l":"Sugestão para estudos futuros","p":"Estudos futuros podem ___"}]},{"t":"Missão 26: Discussão final","g":"Juntar resultados e referencial em um só texto, com um bloco para cada objetivo específico.","ex":"<b>Ordem de cada bloco:</b> resultado, autor, sua interpretação.<br><b>Exemplo:</b> “Em relação ao objetivo 1, observou-se que 40% dos participantes usam o Instagram por mais de 3 horas por dia, em linha com [Autor] (ano). Isso sugere que o uso intenso já faz parte da rotina dos estudantes.”","f":[{"id":"w5_d1","l":"Bloco do objetivo 1","p":"Em relação ao objetivo 1, observou-se que ___, em linha com [Autor] (ano). Isso sugere que ___","ta":1},{"id":"w5_d2","l":"Bloco do objetivo 2","p":"Em relação ao objetivo 2, observou-se que ___","ta":1},{"id":"w5_d3","l":"Bloco do objetivo 3","p":"Em relação ao objetivo 3, observou-se que ___","ta":1},{"id":"w5_fecho","l":"Parágrafo-resumo, que fecha a discussão","p":"De modo geral, os resultados indicam que ___","ta":1},{"id":"w5_ordem","l":"Cada bloco segue a ordem: resultado, autor, minha interpretação.","c":1}]}]},{"n":"O Chefão","c":"#C2275F","sl":"#FBE3EC","sd":"#4A2236","m":[{"t":"Missão 27: Conclusão","g":"Responder à pergunta do dia 1, confirmar cada objetivo e fechar com limitações e sugestão. Sem informações novas e sem citações.","ex":"<b>Exemplo (dados fictícios).</b> “Conclui-se que o tempo diário no Instagram está associado à dificuldade de concentração dos universitários pesquisados. O primeiro objetivo mostrou que 40% usam o aplicativo por mais de 3 horas por dia; o segundo, que...; o terceiro, que... Uma limitação foi a amostra de 30 participantes. Estudos futuros podem incluir outras faculdades.”","f":[{"id":"w6_resp","l":"A resposta da sua pergunta de pesquisa (2 frases)","p":"Conclui-se que ___","ta":1},{"id":"w6_ob1","l":"Objetivo específico 1: o que ficou demonstrado","p":"O primeiro objetivo mostrou que ___"},{"id":"w6_ob2","l":"Objetivo específico 2: o que ficou demonstrado","p":"O segundo objetivo mostrou que ___"},{"id":"w6_ob3","l":"Objetivo específico 3: o que ficou demonstrado","p":"O terceiro objetivo mostrou que ___"},{"id":"w6_lim","l":"Limitações e sugestão para estudos futuros","p":"Uma limitação foi ___. Estudos futuros podem ___","ta":1},{"id":"w6_novo","l":"Não trouxe informações novas nem citações.","c":1}]},{"t":"Missão 28: Introdução, resumo e palavras-chave","g":"Escrever por último o que aparece primeiro, porque só agora você sabe tudo o que o trabalho contém.","ex":"<b>Introdução:</b> tema, problema, pergunta, objetivos, justificativa e como o trabalho está organizado. Exemplo de abertura: “Este trabalho tem como tema o uso do Instagram. A pergunta que o orienta é: [pergunta].”<br><b>Resumo:</b> “Este estudo analisou [...]. Utilizou-se [método]. Os resultados indicam [...]. Conclui-se que [...].”","f":[{"id":"w6_intro","l":"Introdução (tema, problema, pergunta, objetivos, justificativa e organização do trabalho)","p":"Este trabalho tem como tema ___. A pergunta que o orienta é: ___","ta":1},{"id":"w6_resumo","l":"Resumo (contexto, objetivo, método, resultado e conclusão)","p":"Este estudo analisou ___. Utilizou-se ___. Os resultados indicam ___. Conclui-se que ___.","ta":1},{"id":"w6_kw","l":"3 a 5 palavras-chave","p":"Separe por vírgula"},{"id":"w6_tam","l":"O resumo tem o tamanho exigido pela minha faculdade (a ABNT indica de 150 a 500 palavras).","c":1}]},{"t":"Missão 29: ABNT e revisão final","g":"Deixar o trabalho no padrão e sem erros. Confira sempre o manual da sua faculdade, que pode pedir algo diferente.","ex":"<b>Padrão geral:</b> margens de 3 cm à esquerda e em cima, e de 2 cm à direita e embaixo; fonte tamanho 12; espaçamento 1,5; citações longas (mais de 3 linhas) com recuo de 4 cm, fonte 10 e espaçamento simples; referências em ordem alfabética, alinhadas à esquerda, com espaçamento simples.","f":[{"id":"w6_manual","l":"O que o manual da sua faculdade pede de diferente?","p":"Ex.: fonte, margens, capa, folha de rosto ou resumo em inglês"},{"id":"w6_g1","l":"Margens, fonte e espaçamento conferidos.","c":1},{"id":"w6_g2","l":"Citações longas formatadas (recuo de 4 cm, fonte 10).","c":1},{"id":"w6_g3","l":"Referências em ordem alfabética.","c":1},{"id":"w6_g4","l":"Toda citação do texto tem referência, e toda referência foi citada.","c":1},{"id":"w6_g5","l":"Li o texto em voz alta e passei um corretor ortográfico.","c":1}]},{"t":"Missão 30: Simulação de banca","g":"Treinar a defesa. Cada resposta tem 30 segundos: resposta direta, um exemplo e o autor que apoia.","ex":"<b>As 10 perguntas mais prováveis:</b> 1) Por que escolheu este tema? 2) Qual é a pergunta e o objetivo geral? 3) Qual autor foi mais importante e por quê? 4) Por que escolheu este método? 5) Como definiu a amostra ou as fontes? 6) Qual foi o principal resultado? 7) A hipótese foi confirmada ou negada? 8) Quais foram as limitações? 9) Qual é a contribuição do trabalho? 10) Se pudesse refazer, o que mudaria?<br><b>Modelo:</b> “O principal resultado foi [resultado]. Por exemplo, [dado]. Isso dialoga com [Autor] (ano).”","f":[{"id":"w6_p1","l":"Resposta 1: por que escolheu este tema?","p":"Escolhi este tema porque ___","ta":1},{"id":"w6_p2","l":"Resposta 4: por que escolheu este método?","p":"Escolhi este método porque ___","ta":1},{"id":"w6_p3","l":"Resposta 6: qual foi o principal resultado?","p":"O principal resultado foi ___. Por exemplo, ___. Isso dialoga com [Autor] (ano).","ta":1},{"id":"w6_p4","l":"Resposta 8: quais foram as limitações?","p":"As limitações foram ___, mas ___","ta":1},{"id":"w6_t10","l":"Treinei as 10 perguntas em voz alta.","c":1},{"id":"w6_cron","l":"Cronometrei: cada resposta ficou em cerca de 30 segundos.","c":1}]}]}];
+var S={v:{},d:{}};
+try{var s0=JSON.parse(localStorage.getItem("tccq")||"null");if(s0&&s0.v&&s0.d)S=s0}catch(e){}
+function save(){try{localStorage.setItem("tccq",JSON.stringify(S))}catch(e){}}
+function g(w,id){return S.v["w"+w+"_"+id]||""}
+function j(w,ids,sep){return ids.map(function(i){return g(w,i)}).join(sep)}
+function filled(f){return f.c?S.v[f.id]===true:(S.v[f.id]||"").trim().length>2}
+var all=[];
+W.forEach(function(w,wi){w.m.forEach(function(m){m.w=wi;all.push(m)})});
+function ready(i){return all[i].f.every(filled)}
+var PRE={"w2_pergunta":"w1_final","w4_perg":"w1_final"};
+var SUM=[
+function(){return "Assunto: "+g(1,"assunto")+"\nTema: "+g(1,"tema")+"\nRecorte: "+g(1,"recorte")+"\nProblema: "+g(1,"problema")+"\n\nPergunta de pesquisa: "+g(1,"final")+"\n\nTítulo provisório: "+g(1,"titulo")+"\n\nJustificativa: "+g(1,"justif")},
+function(){return "Pergunta de pesquisa: "+g(2,"pergunta")+"\n\nObjetivo geral: "+g(2,"geral")+"\n\nObjetivos específicos:\n1) "+g(2,"o1")+"\n2) "+g(2,"o2")+"\n3) "+g(2,"o3")+"\n\nEsqueleto:\n2.1 "+g(2,"s1").replace(/^2\.1\s*/,"")+"\n2.2 "+g(2,"s2").replace(/^2\.2\s*/,"")+"\n2.3 "+g(2,"s3").replace(/^2\.3\s*/,"")+"\n"+g(2,"partes")+"\n\nCronograma: faltam "+g(2,"dias")+" dias, "+g(2,"folga")+" de folga. "+g(2,"horario")+"\n\nHipótese: "+g(2,"hip")},
+function(){return "Palavras-chave: "+g(3,"kw")+"\n\nFicha da 1ª fonte\nIdeia: "+g(3,"ideia")+"\nCitação: "+g(3,"citacao")+" (p. "+g(3,"pagina")+")\nReferência: "+g(3,"ref")+"\n\nREFERENCIAL (RASCUNHO)\n\n"+j(3,["a1","a2","a3","a4","b0","b1","b2","b3","c1","c2","c3"],"\n\n")},
+function(){return "Método escolhido: "+g(4,"metodo")+"\nPor quê: "+g(4,"motivo")+"\n\nMETODOLOGIA (RASCUNHO)\n\n"+j(4,["t1","t2","t3","t4"],"\n\n")+"\n\nInstrumento ("+g(4,"inst")+")\n1) "+g(4,"q1")+"\n2) "+g(4,"q2")+"\n3) "+g(4,"q3")+"\nPergunta aberta: "+g(4,"q4")+"\n\nColeta: meta de "+g(4,"meta")+" em "+g(4,"prazo")+" dias."},
+function(){return "RESULTADOS\n\n"+g(5,"titulo")+"\n"+g(5,"tabela")+"\n\n"+g(5,"l1")+"\n"+g(5,"l2")+"\n\nDISCUSSÃO\n\n"+j(5,["d1","d2","d3","fecho"],"\n\n")+"\n\nLIMITAÇÕES\n\n"+g(5,"lim")+" "+g(5,"porque")+" "+g(5,"futuro")},
+function(){return "INTRODUÇÃO\n\n"+g(6,"intro")+"\n\nRESUMO\n\n"+g(6,"resumo")+"\nPalavras-chave: "+g(6,"kw")+"\n\nCONCLUSÃO\n\n"+g(6,"resp")+" "+g(6,"ob1")+"; "+g(6,"ob2")+"; "+g(6,"ob3")+". "+g(6,"lim")}];
+function full(){return g(1,"titulo").toUpperCase()+"\n\nRESUMO\n\n"+g(6,"resumo")+"\nPalavras-chave: "+g(6,"kw")+"\n\n1 INTRODUÇÃO\n\n"+g(6,"intro")+"\n\n2 REFERENCIAL TEÓRICO\n\n"+j(3,["a1","a2","a3","a4","b0","b1","b2","b3","c1","c2","c3"],"\n\n")+"\n\n3 METODOLOGIA\n\n"+j(4,["t1","t2","t3","t4"],"\n\n")+"\n\n4 RESULTADOS E DISCUSSÃO\n\n"+g(5,"titulo")+"\n"+g(5,"tabela")+"\n\n"+g(5,"l1")+"\n"+g(5,"l2")+"\n\n"+j(5,["d1","d2","d3","fecho"],"\n\n")+"\n\nLimitações: "+g(5,"lim")+" "+g(5,"porque")+" "+g(5,"futuro")+"\n\n5 CONCLUSÃO\n\n"+g(6,"resp")+" "+g(6,"ob1")+"; "+g(6,"ob2")+"; "+g(6,"ob3")+". "+g(6,"lim")+"\n\nREFERÊNCIAS\n\n"+g(3,"ref")+"\n(Complete com as demais referências das suas fichas, em ordem alfabética.)"}
+var root=document.getElementById("root"),els=[],secs=[],chips=document.getElementById("chips");
+function fld(id){return document.getElementById(id)||document.querySelector('[data-id="'+id+'"]')}
+W.forEach(function(w,wi){
+var sec=document.createElement("section");sec.className="w";sec.id="mundo"+(wi+1);
+sec.style.setProperty("--c",w.c);sec.style.setProperty("--sl",w.sl);sec.style.setProperty("--sd",w.sd);
+sec.innerHTML='<h2 class="wh"><span>Mundo '+(wi+1)+': '+w.n+'</span><span class="wp" id="wp'+wi+'"></span></h2><div class="ml"></div><div class="fim" id="fim'+wi+'"><h3>Selo do Mundo '+(wi+1)+' conquistado!</h3><p>Copie o resumo e guarde em um arquivo: ele é uma parte do seu TCC.</p><div class="res" id="res'+wi+'"></div><button class="btn cp" type="button" data-t="res'+wi+'">Copiar resumo</button></div>';
+root.appendChild(sec);secs.push(sec);
+var ml=sec.querySelector(".ml");
+w.m.forEach(function(m){
+var i=els.length,d=document.createElement("div");d.className="m";
+var h='<button type="button" class="mh"><span>'+m.t+'</span></button><div class="mb"><p class="goal">'+m.g+'</p><p class="ex">'+m.ex+'</p>';
+if(m.vs)h+='<div class="vs"><div class="n"><b>Assim não:</b> '+m.vs[0]+' '+m.vs[1]+'</div><div class="y"><b>Assim sim:</b> '+m.vs[2]+' '+m.vs[3]+'</div></div>';
+if(m.qq)h+='<label>Sua pergunta final</label><div class="q" id="qfinal"></div>';
+m.f.forEach(function(f){
+if(f.c)h+='<label class="ck"><input type="checkbox" data-id="'+f.id+'"><span>'+f.l+'</span></label>';
+else h+='<label for="'+f.id+'">'+f.l+'</label>'+(f.ta?'<textarea id="'+f.id+'" placeholder="'+f.p+'"></textarea>':'<input type="text" id="'+f.id+'" placeholder="'+f.p+'">');
+});
+h+='<button type="button" class="btn">Concluir missão (+10 XP)</button><p class="hint">Preencha todos os campos para concluir.</p></div>';
+d.innerHTML=h;ml.appendChild(d);els.push(d);
+d.querySelector(".mh").addEventListener("click",function(){if(!d.classList.contains("lock"))d.classList.toggle("open")});
+m.f.forEach(function(f){
+var inp=fld(f.id);
+if(f.c){inp.checked=S.v[f.id]===true;inp.addEventListener("change",function(){S.v[f.id]=inp.checked;save();refresh()})}
+else{inp.value=S.v[f.id]||"";inp.addEventListener("input",function(){S.v[f.id]=inp.value;save();refresh()})}
+});
+d.querySelector(".btn").addEventListener("click",function(){
+if(!ready(i))return;S.d[i]=1;save();refresh();
+els[i].classList.remove("open");
+var nx=els[i+1];
+if(nx){nx.classList.add("open");nx.scrollIntoView({block:"start"})}
+else document.getElementById("fimfinal").scrollIntoView({block:"start"});
+});
+});
+var ch=document.createElement("button");ch.type="button";ch.className="chip";ch.style.setProperty("--c",w.c);ch.textContent=(wi+1)+" "+w.n;
+ch.addEventListener("click",function(){secs[wi].scrollIntoView({block:"start"})});
+chips.appendChild(ch);
+});
+function firstOf(wi){var k=0;for(var x=0;x<wi;x++)k+=W[x].m.length;return k}
+function refresh(){
+var n=Object.keys(S.d).length,xp=n*10;
+document.getElementById("xp").textContent=xp+" XP";
+document.getElementById("fill").style.width=(n/all.length*100)+"%";
+document.getElementById("lvl").textContent=xp>=200?"Mestre do TCC":xp>=100?"Pesquisador":"Calouro";
+Object.keys(PRE).forEach(function(k){
+var src=S.v[PRE[k]];
+if(src&&!S.v[k]){S.v[k]=src;var el=fld(k);if(el)el.value=src}
+});
+els.forEach(function(d,i){
+var locked=i>0&&!S.d[i-1];
+d.classList.toggle("lock",locked);
+if(locked)d.classList.remove("open");
+d.classList.toggle("done",!!S.d[i]);
+var b=d.querySelector(".btn");b.disabled=!ready(i)||!!S.d[i];
+b.textContent=S.d[i]?"Missão concluída":"Concluir missão (+10 XP)";
+});
+var q=document.getElementById("qfinal");if(q)q.textContent=S.v.w1_final||"Escreva a pergunta final na Missão 3.";
+W.forEach(function(w,wi){
+var f0=firstOf(wi),c=0;
+w.m.forEach(function(m,k){if(S.d[f0+k])c++});
+document.getElementById("wp"+wi).textContent=c+" de "+w.m.length+" missões";
+var fim=document.getElementById("fim"+wi),full=c===w.m.length;
+fim.classList.toggle("show",full);
+if(full)document.getElementById("res"+wi).textContent=SUM[wi]();
+chips.children[wi].disabled=wi>0&&!S.d[f0-1];
+chips.children[wi].textContent=(wi+1)+" "+w.n+(full?" ✓":"");
+});
+var done=n===all.length;
+document.getElementById("fimfinal").classList.toggle("show",done);
+if(done)document.getElementById("resfinal").textContent=full();
+}
+document.addEventListener("click",function(e){
+var b=e.target.closest&&e.target.closest(".cp");if(!b)return;
+var t=document.getElementById(b.getAttribute("data-t")).textContent,msg=document.getElementById("cmsg");
+var ok=function(){msg.textContent="Copiado."},ko=function(){msg.textContent="Não foi possível copiar. Selecione o texto e copie manualmente."};
+try{navigator.clipboard.writeText(t).then(ok,ko)}catch(err){ko()}
+});
+function bkCode(){return "tccq1:"+btoa(unescape(encodeURIComponent(JSON.stringify(S))))}
+function bkMsg(t){document.getElementById("bkmsg").textContent=t}
+function applyState(o){
+S=o;save();
+all.forEach(function(m){m.f.forEach(function(f){var el=fld(f.id);if(!el)return;if(f.c)el.checked=S.v[f.id]===true;else el.value=S.v[f.id]||""})});
+els.forEach(function(d){d.classList.remove("open")});
+refresh();
+var k=0;while(k<all.length&&S.d[k])k++;
+if(k<all.length)els[k].classList.add("open");
+}
+document.getElementById("bkgen").addEventListener("click",function(){document.getElementById("bkcode").value=bkCode();bkMsg("Código gerado. Copie ou baixe e guarde em um lugar seguro.")});
+document.getElementById("bkcopy").addEventListener("click",function(){
+var ta=document.getElementById("bkcode");if(!ta.value.trim())ta.value=bkCode();
+try{navigator.clipboard.writeText(ta.value).then(function(){bkMsg("Código copiado. Guarde em um lugar seguro.")},function(){ta.select();bkMsg("Não foi possível copiar sozinho. O código está selecionado: copie manualmente.")})}
+catch(e){ta.select();bkMsg("Não foi possível copiar sozinho. O código está selecionado: copie manualmente.")}
+});
+document.getElementById("bkdl").addEventListener("click",function(){
+var ta=document.getElementById("bkcode");if(!ta.value.trim())ta.value=bkCode();
+try{var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ta.value],{type:"text/plain"}));a.download="tcc-quest-progresso.txt";document.body.appendChild(a);a.click();a.remove();bkMsg("Se o download não iniciar, use o botão Copiar código.")}
+catch(e){bkMsg("Não foi possível baixar. Use o botão Copiar código.")}
+});
+document.getElementById("bkrest").addEventListener("click",function(){
+var raw=document.getElementById("bkcode").value.trim();
+try{
+if(raw.indexOf("tccq1:")!==0)throw 0;
+var o=JSON.parse(decodeURIComponent(escape(atob(raw.slice(6)))));
+if(!o||typeof o.v!=="object"||typeof o.d!=="object")throw 0;
+applyState({v:o.v,d:o.d});
+bkMsg("Progresso restaurado.");
+}catch(e){bkMsg("Código inválido. Confira se você copiou o código inteiro.")}
+});
+var first=0;while(first<all.length&&S.d[first])first++;
+if(first<all.length)els[first].classList.add("open");
+refresh();
+</script>
+</body>
+</html>

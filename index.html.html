@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCC Quest: seu TCC em 30 missões de 1 hora por dia</title>
+<meta name="description" content="Um passo a passo simples, com exemplo pronto em cada etapa, para você construir o seu TCC sem travar e chegar à banca sabendo defender.">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F8;--grid:#D5DFEA;--surface:#fff;--ink:#14213D;--muted:#51607A;--cta:#C2381F;--bad:#FBE3E3;--good:#DFF3E8;--soft:#FCE9E4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--cta:#E0573D;--bad:#4A2A2F;--good:#1F4535;--soft:#3A2630;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--cta:#E0573D;--bad:#4A2A2F;--good:#1F4535;--soft:#3A2630;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;line-height:1.6;font-size:1.05rem;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+section{padding:40px 0}
+h1,h2,h3{font-family:"Baloo 2",system-ui,sans-serif;line-height:1.1;margin:0 0 12px}
+h1{font-weight:800;font-size:clamp(2.2rem,8vw,3.6rem)}
+h2{font-weight:800;font-size:clamp(1.6rem,5.5vw,2.3rem)}
+h3{font-weight:600;font-size:1.25rem}
+.kick{display:inline-block;font-weight:700;font-size:.85rem;background:var(--ink);color:var(--bg);border-radius:99px;padding:4px 14px;margin-bottom:14px}
+.lead{font-size:1.15rem;color:var(--muted);margin:0 0 22px}
+.go{display:inline-block;text-align:center;text-decoration:none;font:800 1.1rem "Baloo 2",system-ui,sans-serif;background:var(--cta);color:#fff;border:2px solid var(--ink);border-radius:12px;padding:12px 22px;box-shadow:4px 4px 0 var(--ink)}
+.go:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.small{font-size:.9rem;color:var(--muted);margin:12px 0 0}
+.card{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:16px;box-shadow:4px 4px 0 var(--ink)}
+.pain{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:10px}
+.pain li{background:var(--surface);border:2px solid var(--ink);border-radius:12px;padding:12px 14px}
+.worlds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.world{background:var(--surface);border:2px solid var(--ink);border-top:10px solid var(--c);border-radius:14px;padding:12px 14px;box-shadow:4px 4px 0 var(--ink)}
+.world b{display:block;font-family:"Baloo 2",system-ui,sans-serif;font-size:1.15rem}
+.world span{font-size:.85rem;font-weight:700;color:var(--muted)}
+.world p{margin:6px 0 0;font-size:.95rem}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.list li{padding-left:30px;position:relative}
+.list li::before{content:"";position:absolute;left:0;top:.35em;width:18px;height:18px;border:2px solid var(--ink);border-radius:5px;background:var(--good)}
+.ex{background:var(--soft);border-left:6px solid var(--cta);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:.95rem}
+.vs{display:grid;gap:8px;font-size:.95rem}
+.vs div{border-radius:8px;padding:8px 12px}.vs .n{background:var(--bad)}.vs .y{background:var(--good)}
+.two{display:grid;gap:14px}
+@media(min-width:640px){.two{grid-template-columns:1fr 1fr}}
+.offer{text-align:center}
+.price{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:3rem;line-height:1;margin:8px 0}
+.price small{font-size:1rem;font-weight:600;color:var(--muted)}
+details{background:var(--surface);border:2px solid var(--ink);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+summary{font-weight:700;cursor:pointer}
+details p{margin:8px 0 0;color:var(--muted)}
+footer{padding:24px 0 8px;font-size:.85rem;color:var(--muted)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--surface);border-top:2px solid var(--ink);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bar b{font-family:"Baloo 2",system-ui,sans-serif;font-size:1.2rem}
+.bar .go{padding:8px 16px;font-size:1rem;box-shadow:3px 3px 0 var(--ink)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- Para ligar o botão ao seu checkout, troque o valor de CHECKOUT no final da página. -->
+<header class="wrap" style="padding-top:34px">
+<span class="kick">Guia gamificado para estudantes</span>
+<h1>Seu TCC em 30 missões de 1 hora por dia</h1>
+<p class="lead">Um passo a passo simples, com exemplo pronto em cada etapa, para você construir o seu TCC sem travar e chegar à banca sabendo defender.</p>
+<a class="go" href="#comprar">Quero começar o TCC Quest</a>
+<p class="small">Acesso imediato. Funciona no celular e no computador.</p>
+</header>
+
+<main class="wrap">
+<section>
+<h2>Você se reconhece em algum destes pontos?</h2>
+<ul class="pain">
+<li>Não sabe como escolher um tema nem como transformá-lo em uma pergunta de pesquisa.</li>
+<li>Abre o documento em branco e não passa da primeira linha.</li>
+<li>Se perde na metodologia e nas referências da ABNT.</li>
+<li>Deixa para a última semana e entra em desespero.</li>
+</ul>
+<p><b>O problema não é falta de capacidade. É falta de um caminho.</b> O TCC Quest corta o trabalho grande em 30 missões pequenas, e cada uma diz exatamente o que fazer naquela hora.</p>
+</section>
+
+<section>
+<h2>Como funciona: 6 mundos, 30 missões</h2>
+<p class="lead">Você cumpre uma missão por dia, ganha XP e monta o seu TCC peça por peça.</p>
+<div class="worlds">
+<div class="world" style="--c:#D9482F"><span>Mundo 1 · 5 missões</span><b>A Pergunta</b><p>Tema, problema e pergunta de pesquisa.</p></div>
+<div class="world" style="--c:#9A6700"><span>Mundo 2 · 5 missões</span><b>O Mapa</b><p>Objetivos, esqueleto, cronograma e hipótese.</p></div>
+<div class="world" style="--c:#23805A"><span>Mundo 3 · 7 missões</span><b>A Biblioteca</b><p>Fontes, fichamento e referencial teórico.</p></div>
+<div class="world" style="--c:#1F6FB5"><span>Mundo 4 · 4 missões</span><b>O Método</b><p>Método, metodologia, instrumento e coleta.</p></div>
+<div class="world" style="--c:#7B4FD1"><span>Mundo 5 · 5 missões</span><b>A Descoberta</b><p>Resultados, discussão e limitações.</p></div>
+<div class="world" style="--c:#C2275F"><span>Mundo 6 · 4 missões</span><b>O Chefão</b><p>Conclusão, introdução, ABNT e simulação de banca.</p></div>
+</div>
+</section>
+
+<section>
+<h2>Veja como é uma missão</h2>
+<div class="card">
+<h3>Missão 3: A pergunta</h3>
+<p><b>Objetivo:</b> escrever a pergunta de pesquisa em uma frase só.</p>
+<div class="ex"><b>Exemplo:</b> “Como o tempo diário no Instagram influencia a concentração nos estudos de universitários de uma faculdade privada?”</div>
+<div class="vs">
+<div class="n"><b>Assim não:</b> “Redes sociais fazem mal?” Ampla demais, sem recorte.</div>
+<div class="y"><b>Assim sim:</b> pergunta específica, com recorte e respondível com dados.</div>
+</div>
+<p class="small">Depois do exemplo, você escreve a sua pergunta nos campos da própria missão.</p>
+</div>
+</section>
+
+<section>
+<h2>O que você recebe</h2>
+<ul class="list">
+<li><b>30 missões interativas,</b> cada uma pensada para 1 hora.</li>
+<li><b>Um TCC de exemplo</b> construído ao longo de todas as etapas, para você ver o antes e o depois.</li>
+<li><b>Campos para escrever</b> o seu TCC dentro do próprio guia.</li>
+<li><b>Quadros “Assim não / Assim sim”</b> nas etapas em que mais se erra.</li>
+<li><b>Modelos de frase</b> para começar parágrafos, citar autores e apresentar resultados.</li>
+<li><b>XP, níveis e selos</b> para manter a motivação até o fim.</li>
+<li><b>Rascunho completo do TCC</b> montado com as suas respostas, pronto para copiar.</li>
+<li><b>Backup do progresso,</b> para continuar em outro aparelho.</li>
+<li><b>Bônus:</b> 30 flashcards para revisar cada lição em 2 minutos.</li>
+</ul>
+</section>
+
+<section>
+<div class="two">
+<div class="card"><h3>Para quem é</h3><p>Para quem precisa fazer um TCC e trava no tema, no texto, na metodologia ou nas referências, e quer um caminho simples, sem linguagem difícil.</p></div>
+<div class="card"><h3>Para quem não é</h3><p>Para quem procura um trabalho pronto para entregar. O TCC Quest guia você a construir o seu, e é por isso que você chega à banca sabendo defender.</p></div>
+</div>
+</section>
+
+<section id="comprar">
+<div class="card offer">
+<span class="kick">Pagamento único</span>
+<h2>TCC Quest completo</h2>
+<div class="price">R$ 37 <small>à vista</small></div>
+<p>30 missões, exemplo pronto, campos para escrever, rascunho final e bônus de flashcards.</p>
+<a class="go" href="#comprar">Quero começar agora</a>
+<p class="small"><b>Garantia de 7 dias:</b> se você não gostar, peça o reembolso dentro do prazo.</p>
+</div>
+</section>
+
+<section>
+<h2>Perguntas frequentes</h2>
+<details><summary>Preciso saber escrever bem?</summary><p>Não. O guia ensina com frases-modelo e exemplos prontos. Você escreve com as suas palavras, em frases simples.</p></details>
+<details><summary>Quanto tempo vou gastar por dia?</summary><p>Cerca de 1 hora por dia, durante 30 dias. Se o seu prazo for menor, dá para fazer mais de uma missão por dia.</p></details>
+<details><summary>Serve para qualquer curso?</summary><p>O método vale para a maioria dos cursos que pedem TCC ou monografia. Algumas faculdades têm regras próprias de formato, e o guia orienta você a conferir o manual da sua instituição.</p></details>
+<details><summary>O TCC Quest faz o trabalho por mim?</summary><p>Não. Ele guia você passo a passo para que o trabalho seja seu e você saiba defendê-lo diante da banca.</p></details>
+<details><summary>Funciona no celular?</summary><p>Sim. Funciona no celular, no tablet e no computador.</p></details>
+<details><summary>Meu progresso fica salvo?</summary><p>Fica salvo no aparelho que você usa. Para trocar de aparelho, use o código de progresso que o próprio guia gera.</p></details>
+<details><summary>Como recebo o acesso?</summary><p>Logo depois da confirmação do pagamento, pela plataforma de compra.</p></details>
+</section>
+
+<section style="text-align:center">
+<h2>Comece pela Missão 1 ainda hoje</h2>
+<p class="lead">Uma hora por dia separa você de um TCC organizado.</p>
+<a class="go" href="#comprar">Quero começar o TCC Quest</a>
+</section>
+</main>
+
+<footer class="wrap">
+<p>O TCC Quest é um material educativo. O trabalho final deve ser autoral e seguir as regras da sua instituição. Os resultados dependem da dedicação do aluno e da avaliação da banca. Este material não tem vínculo com nenhuma instituição de ensino.</p>
+</footer>
+
+<div class="bar"><b>R$ 37</b><a class="go" href="#comprar">Quero começar</a></div>
+
+<script>
+// Cole aqui o link de pagamento da sua plataforma (Hotmart, Kiwify etc.).
+var CHECKOUT="#comprar";
+Array.prototype.forEach.call(document.querySelectorAll("a.go"),function(a){a.href=CHECKOUT});
+</script>
+</body>
+</html>

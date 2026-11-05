@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCC Quest: flashcards das 30 missões</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F8;--grid:#D5DFEA;--surface:#fff;--ink:#14213D;--muted:#51607A;--line:#C9D5E3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--line:#2F4263;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1A2E;--grid:#18263F;--surface:#1B2B47;--ink:#F1F5FB;--muted:#A9B7CE;--line:#2F4263;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;line-height:1.5}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 56px}
+h1{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:0 0 6px}
+.sub{margin:0 0 20px;color:var(--muted);max-width:56ch}
+.hud{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:12px 16px;margin-bottom:18px;box-shadow:4px 4px 0 var(--ink)}
+.lvl{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:1.25rem}
+.bar{flex:1;min-width:140px;height:14px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;background:var(--bg)}
+.bar i{display:block;height:100%;width:0;background:#2E9E6B;transition:width .4s}
+.xp{font-weight:700}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{font:700 .9rem "Nunito Sans",system-ui,sans-serif;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{perspective:900px;cursor:pointer;border-radius:14px;outline-offset:4px}
+.card:focus-visible{outline:3px solid var(--ink)}
+.inner{display:grid;transform-style:preserve-3d;transition:transform .5s}
+.card.flip .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:230px;background:var(--surface);border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;display:flex;flex-direction:column}
+.face.back{transform:rotateY(180deg)}
+.top{background:var(--c);color:#fff;font-weight:700;font-size:.85rem;padding:6px 14px;display:flex;justify-content:space-between;gap:8px}
+.body{padding:16px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.q{font-family:"Baloo 2",system-ui,sans-serif;font-weight:600;font-size:1.3rem;line-height:1.2;margin:0}
+.a{margin:0;font-size:1rem}
+.hint{font-size:.8rem;color:var(--muted);padding:0 16px 12px}
+.done-btn{margin:0 16px 14px;font:700 .95rem "Nunito Sans",system-ui,sans-serif;border:2px solid var(--ink);border-radius:10px;padding:8px;background:var(--bg);color:var(--ink);cursor:pointer}
+.card.done .done-btn{background:#2E9E6B;color:#fff}
+.card.done .top::after{content:"Dominado";}
+@media (prefers-reduced-motion:reduce){.inner,.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>TCC Quest: os 30 flashcards</h1>
+<p class="sub">Um card por missão. Leia a pergunta, tente responder em voz alta e toque no card para conferir. Domine os 30 e vire Mestre do TCC.</p>
+<div class="hud" aria-live="polite">
+<span class="lvl" id="lvl">Calouro</span>
+<div class="bar"><i id="fill"></i></div>
+<span class="xp" id="xp">0 XP</span>
+</div>
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div>
+</main>
+<script>
+var W=[
+["Mundo 1: A Pergunta","#D9482F"],
+["Mundo 2: O Mapa","#B87A00"],
+["Mundo 3: A Biblioteca","#23805A"],
+["Mundo 4: O Método","#1F6FB5"],
+["Mundo 5: A Descoberta","#7B4FD1"],
+["Mundo 6: O Chefão","#C2275F"]];
+var C=[
+[0,"Como achar um bom assunto?","Liste 10 temas do curso que você conhece ou acha interessantes. Escolha o que tem mais material para pesquisar."],
+[0,"Como afunilar o tema?","Em três passos: tema (assunto geral), recorte (quem, onde, quando) e problema (o que você quer entender)."],
+[0,"Qual é a fórmula da pergunta?","“Como [X] influencia [Y] em [contexto]?” Uma frase só, específica e com recorte."],
+[0,"A pergunta passa no teste?","Dá para responder com dados e fontes reais? Cabe no seu prazo? Se não, reduza o recorte."],
+[0,"Por que o tema importa?","A justificativa mostra, em 5 linhas, qual é o problema, quem ele afeta e o que o seu estudo traz de útil."],
+[1,"Como escrever o objetivo geral?","Em uma frase que começa com verbo no infinitivo: analisar, comparar, identificar."],
+[1,"O que são objetivos específicos?","Os passos para chegar ao objetivo geral. São três, e cada um vira um capítulo."],
+[1,"O que é o esqueleto do TCC?","O sumário com títulos e subtítulos, pronto antes de você começar a escrever."],
+[1,"Por que fazer um cronograma?","Ele divide o trabalho em missões de 1 hora e evita a correria da última semana."],
+[1,"O que é hipótese?","É o que você acredita que vai encontrar. Se for confirmada ou não, os dois resultados valem."],
+[2,"Onde buscar fontes confiáveis?","No Google Acadêmico, no SciELO e na biblioteca da sua faculdade. Use 5 palavras-chave."],
+[2,"Como filtrar as fontes?","Prefira as recentes (últimos 5 a 10 anos), de revistas científicas e com autor identificado."],
+[2,"O que é fichamento?","Uma ficha de 4 linhas: ideia principal, citação útil, página e referência já formatada."],
+[2,"Qual é o parágrafo de 3 passos?","Ponto (a ideia), Explicação (com as suas palavras) e Citação (o autor que sustenta)."],
+[2,"Citação direta ou indireta?","A direta copia o trecho entre aspas, com a página. A indireta reescreve a ideia com as suas palavras e cita o autor."],
+[2,"Como evitar plágio?","Leia, feche a fonte, escreva com as suas palavras e cite o autor. Copiar sem reescrever é detectado."],
+[2,"Como fechar o referencial?","Um capítulo para cada objetivo específico, com 3 a 4 parágrafos de 3 passos cada."],
+[3,"Qual método escolher?","Depende da pergunta. “O que dizem os autores?” pede revisão bibliográfica; um caso específico pede estudo de caso; a opinião de pessoas pede questionário."],
+[3,"O que vai na metodologia?","O tipo de pesquisa, a abordagem, como os dados foram coletados e como foram analisados."],
+[3,"Qualitativa ou quantitativa?","A qualitativa interpreta (textos, entrevistas). A quantitativa mede (números, gráficos)."],
+[3,"O que é amostra?","O grupo menor de pessoas ou casos que representa o todo. Diga quantos são e por que foram escolhidos."],
+[4,"Como organizar os dados?","Em uma tabela ou lista simples, com um dado por linha e um título claro."],
+[4,"Como explicar um dado?","Em uma frase: o que ele mostra, sem exagerar."],
+[4,"Como conectar com o referencial?","“Esse resultado confirma o que [autor] afirma...” ou “contraria o que [autor] afirma...”. A banca valoriza muito isso."],
+[4,"O que são limitações?","O que ficou de fora e por quê, como amostra pequena ou prazo curto. Mostrar isso passa honestidade."],
+[4,"O que é discussão?","A comparação entre o que você encontrou e o que os autores dizem."],
+[5,"O que vai na conclusão?","A resposta da pergunta, a confirmação de cada objetivo e as limitações. Sem informações novas."],
+[5,"O que escrever por último?","Introdução, resumo e palavras-chave, porque só agora você sabe tudo o que o trabalho contém."],
+[5,"O que revisar na ABNT?","Margens, fonte, espaçamento, citações e a lista de referências em ordem alfabética."],
+[5,"Como responder na banca?","Em 30 segundos: resposta direta, um exemplo e o autor que apoia."]
+];
+var done={},filter=-1;
+try{done=JSON.parse(localStorage.getItem("tccq")||"{}")}catch(e){done={}}
+function save(){try{localStorage.setItem("tccq",JSON.stringify(done))}catch(e){}}
+function hud(){
+var n=Object.keys(done).length,xp=n*10;
+document.getElementById("xp").textContent=xp+" XP";
+document.getElementById("fill").style.width=(n/30*100)+"%";
+document.getElementById("lvl").textContent=xp>=200?"Mestre do TCC":xp>=100?"Pesquisador":"Calouro";
+}
+function render(){
+var g=document.getElementById("grid");g.innerHTML="";
+C.forEach(function(c,i){
+if(filter>=0&&c[0]!==filter)return;
+var w=W[c[0]],el=document.createElement("div");
+el.className="card"+(done[i]?" done":"");
+el.style.setProperty("--c",w[1]);
+el.tabIndex=0;el.setAttribute("role","button");
+el.setAttribute("aria-label","Missão "+(i+1)+": "+c[1]+". Toque para ver a resposta.");
+el.innerHTML='<div class="inner"><div class="face front"><div class="top"><span>Missão '+(i+1)+'</span><span>'+w[0]+'</span></div><div class="body"><p class="q">'+c[1]+'</p></div><div class="hint">Toque para ver a resposta</div></div><div class="face back"><div class="top"><span>Missão '+(i+1)+'</span></div><div class="body"><p class="a">'+c[2]+'</p></div><button class="done-btn" type="button">'+(done[i]?"Desmarcar":"Dominei este card")+'</button></div></div>';
+el.addEventListener("click",function(){el.classList.toggle("flip")});
+el.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target===el){e.preventDefault();el.classList.toggle("flip")}});
+el.querySelector(".done-btn").addEventListener("click",function(e){
+e.stopPropagation();
+if(done[i])delete done[i];else done[i]=1;
+save();hud();el.classList.toggle("done",!!done[i]);
+this.textContent=done[i]?"Desmarcar":"Dominei este card";
+});
+g.appendChild(el);
+});
+}
+function filters(){
+var f=document.getElementById("filters"),names=["Todos"].concat(W.map(function(w){return w[0]}));
+names.forEach(function(n,k){
+var b=document.createElement("button");b.className="chip";b.type="button";b.textContent=n;
+b.setAttribute("aria-pressed",k-1===filter?"true":"false");
+b.addEventListener("click",function(){filter=k-1;Array.prototype.forEach.call(f.children,function(x,j){x.setAttribute("aria-pressed",j===k?"true":"false")});render()});
+f.appendChild(b);
+});
+}
+filters();hud();render();
+</script>
+</body>
+</html>
